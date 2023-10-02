@@ -1,0 +1,12 @@
+[submodule "RamenAdvisor_Api"]
+	path = RamenAdvisor_Api
+	url = https://github.com/B3-Angers-2324/RamenAdvisor_Api.git
+[submodule "RamenAdvisor_Admin"]
+	path = RamenAdvisor_Admin
+	url = https://github.com/B3-Angers-2324/RamenAdvisor_Admin.git
+[submodule "RamenAdvisor_Owner"]
+	path = RamenAdvisor_Owner
+	url = https://github.com/B3-Angers-2324/RamenAdvisor_Owner.git
+[submodule "RamenAdvisor_Front"]
+	path = RamenAdvisor_Front
+	url = https://github.com/B3-Angers-2324/RamenAdvisor_Front.git
