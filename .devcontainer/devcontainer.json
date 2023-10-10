@@ -15,16 +15,13 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				//MongoDB
 				"mongodb.mongodb-vscode",
-				//Copilots 
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				//Utilities
 				"hediet.vscode-drawio",
 				"mhutchie.git-graph",
-				"tomoki1207.pdf"
-
+				"tomoki1207.pdf",
+				"svelte.svelte-vscode"
 			]
 		}
 	},
