@@ -24,9 +24,9 @@ services:
       - mongodb-data:/data/db
 
     # Uncomment to change startup options
-    # environment:
-    #  MONGO_INITDB_ROOT_USERNAME: root
-    #  MONGO_INITDB_ROOT_PASSWORD: example
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
     #  MONGO_INITDB_DATABASE: your-database-here
 
     # Add "forwardPorts": ["27017"] to **devcontainer.json** to forward MongoDB locally.
