@@ -34,13 +34,13 @@
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [3000, 27017, 5173, 5174, 51735],
+	"forwardPorts": [3000, 27017, 5173, 5174, 5175],
 	/* Port list
 	- 3000 backend
 	- 27017 mongo
 	- 5173 Svelte User
 	- 5174 Svelte Owner
-	- 51735 Svelte Admin*/
+	- 5175 Svelte Admin*/
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
