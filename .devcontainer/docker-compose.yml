@@ -11,11 +11,12 @@ services:
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db
-
-    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    # Link all the container port to the host ones so we can access them from other machines
+    ports:
+      - 3000:3000
+      - 5173:5173 
+      - 5174:5174
+      - 5175:5175
 
   db:
     image: mongo:latest
@@ -29,8 +30,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
     #  MONGO_INITDB_DATABASE: your-database-here
 
-    # Add "forwardPorts": ["27017"] to **devcontainer.json** to forward MongoDB locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    # Set the db container to be on the same network as the app container so they can talk to each other
+    network_mode: service:app
 
 volumes:
   mongodb-data:
