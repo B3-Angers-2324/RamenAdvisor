@@ -15,7 +15,7 @@ First, switch to the right builder for multi architecure build :\
 `docker buildx use multarchbuilder`
 
 Then build the image :\
-`docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t <image_name> . --push`
+`docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t <image_name>:latest -t <image_name>:v<VERSION> . --push`
 
 the images names:
 - ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-api

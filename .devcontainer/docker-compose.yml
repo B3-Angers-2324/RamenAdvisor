@@ -33,5 +33,6 @@ services:
     # Set the db container to be on the same network as the app container so they can talk to each other
     network_mode: service:app
 
+
 volumes:
   mongodb-data:

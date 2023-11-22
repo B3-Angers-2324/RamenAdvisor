@@ -1,0 +1,91 @@
+version: '3.8'
+services:
+
+  #Database ------
+  db:
+    image: mongo:jammy
+    restart: unless-stopped
+    container_name: db1_test
+    hostname: db1_test
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    networks:
+      - ramenadvisor-network
+
+  #Api -----
+  api:
+    build:
+      context: ./RamenAdvisor_Api/
+      dockerfile: Dockerfile
+    #image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-api
+    container_name: ramenadvisor_api
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - HOST=localhost
+      - DB_CONN=mongodb://root:rootpassword@db1_test:27017/?authSource=admin&readPreference=primary&ssl=false&directConnection=true
+      - DB_NAME=Ramen
+      #JWT_token secret
+      - JWT_SECRET_USER="ILoveRamenWithSoySauceAndEggButNotWithPorkAndMaybeWithChicken"
+      - JWT_SECRET_OWNER="TheMp3IsTheBestFormatForMusicButNotForVideoAndMaybeForPodcast"
+      - JWT_SECRET_ADMIN="B3ForTheBestButNotForTheWorstAndMaybeForTheMiddle"
+      - JWT_SECRET_MODO="TrainsAreTheBestWayToTravelButNotForThePlaneAndMaybeForTheCar"
+      - JWT_EXPIRES_IN="2h"
+    ports:
+      - "4000:3000"
+    networks:
+      - ramenadvisor-network
+    
+  #Mongo-express ------
+  mongo-express:
+    image: mongo-express:latest
+    restart: unless-stopped
+    ports:
+      - "4001:8081"
+    links:
+      - db
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://root:rootpassword@db1_test:27017
+    networks:
+      - ramenadvisor-network
+  
+  #Front ------
+  front-end:
+    build:
+      context: ./RamenAdvisor_Front/
+      dockerfile: Dockerfile
+    #image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-front
+    container_name: ramenadvisor_front
+    restart: unless-stopped
+    ports:
+      - "4002:80"
+
+    # Set the db container to be on the same network as the app container so they can talk to each other
+    networks:
+      - ramenadvisor-network
+
+  #Front Owner ------
+  front-end:
+    build:
+      context: ./RamenAdvisor_Owner/
+      dockerfile: Dockerfile
+    #image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-front
+    container_name: ramenadvisor_owner
+    restart: unless-stopped
+    ports:
+      - "4003:80"
+
+    # Set the db container to be on the same network as the app container so they can talk to each other
+    networks:
+      - ramenadvisor-network
+
+
+volumes:
+  mongodb-data:
+
+networks:
+  ramenadvisor-network:
+    #driver: bridge
