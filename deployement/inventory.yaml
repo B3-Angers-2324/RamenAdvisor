@@ -1,0 +1,8 @@
+virtualmachines:
+  hosts:
+    vmJu:
+      ansible_host: 4.233.118.50
+      ansible_user: azureuser
+    vmTi:
+      ansible_host: 4.178.97.189
+      ansible_user: azureuser

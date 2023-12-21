@@ -1,0 +1,78 @@
+- hosts: all
+  become: true
+  vars_files:
+    - ./vars/default.yml
+
+  tasks:
+    - block: # Install packages
+      - name: Update apt cache
+        apt:
+          update_cache: yes
+      
+      - name: Upgrade all packages
+        apt:
+          upgrade: yes
+          autoremove: yes
+          autoclean: yes
+
+      - name: Install containerd
+        apt:
+          name: containerd
+          state: present
+
+      - name: Install Docker
+        apt:
+          name: docker.io
+          state: present
+
+      - name: Install Docker Compose
+        apt:
+          name: docker-compose
+          state: present
+
+      - name: Install Python
+        apt:
+          name: python
+          state: present
+      
+      - name: Install Python PIP
+        apt:
+          name: python3-pip
+          state: present
+
+      - name: Install Docker SDK for Python
+        ansible.builtin.pip:
+          name: docker
+          state: present
+
+    - block: # Configuration 
+      - name: ensures /home/docker/ dir exists
+        file: 
+          path: "/home/docker/"
+          state: directory
+
+      - name: Connect to registry 
+        docker_login:
+          registry_url: "{{ github_registry_url }}"
+          username: "{{ github_registry_username }}"
+          password: "{{ github_registry_token }}"
+
+      - name: Stop container
+        docker_container:
+          name: "{{ container_name }}"
+          state: stopped
+          timeout: 60
+
+      - name: copy Docker Compose files
+        copy:
+          src: ./config/{{ item }}
+          dest: /home/docker/{{ item }}
+        loop:
+          - docker-compose.yml
+
+      # use files parameter to use multiple docker-compose.yml files
+      - name: deploy Docker Compose stack
+        community.docker.docker_compose:
+          project_src: /home/docker/
+          files:
+            - docker-compose.yml

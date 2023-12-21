@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  front:
+    image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-front:v3.1.3
+    container_name: ramenadvisor_front
+    restart: unless-stopped
+    #environment:
+      #- VITE_API_URL="https://api.ramenadvisor.fr/api/v1"
+    ports:
+      - "80:80"

@@ -21,7 +21,9 @@
 				"hediet.vscode-drawio",
 				"mhutchie.git-graph",
 				"tomoki1207.pdf",
-				"svelte.svelte-vscode"
+				"svelte.svelte-vscode",
+				"Gruntfuggly.todo-tree",
+				"redhat.ansible"
 			]
 		}
 	},

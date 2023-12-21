@@ -20,8 +20,8 @@ Then build the image :\
 the images names:
 - ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-api
 - ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-front
-- ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-owner *(Not ready yet)*
-- ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-admin *(Not ready yet)*
+- ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-owner
+- ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-admin
 
 And finally, reset the build env :\
 `docker context use default` && `docker buildx user default`
@@ -64,7 +64,7 @@ db:
 #### Front :
 ```yaml
 front:
-  image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-front
+  image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-front:<VERSION>
   container_name: ramenadvisor_front
   restart: unless-stopped
   ports:
@@ -72,6 +72,29 @@ front:
   networks:
     - <PROXY_NETWORK>
 ```
+#### Owner :
+```yaml
+front:
+  image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-owner:<VERSION>
+  container_name: ramenadvisor_owner
+  restart: unless-stopped
+  ports:
+    - "<OWNER_PORT>:80"
+  networks:
+    - <PROXY_NETWORK>
+```
+#### Admin :
+```yaml
+front:
+  image: ghcr.io/b3-angers-2324/ramenadvisor/ramenadvisor-admin:<VERSION>
+  container_name: ramenadvisor_admin
+  restart: unless-stopped
+  ports:
+    - "<ADMIN_PORT>:80"
+  networks:
+    - <PROXY_NETWORK>
+```
+
 #### API :
 ```yaml
 api:
@@ -88,4 +111,3 @@ api:
   networks:
     - <PROXY_NETWORK>
 ```
-
