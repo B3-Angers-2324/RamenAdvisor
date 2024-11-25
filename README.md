@@ -8,7 +8,6 @@ But don't forget to work inside the submodules and not in the root of the repo.\
 for that you'll need to `cd` into the submodule and `git checkout` in the branch you wan't to work in.
 
 ## Build 
-*(Work only for Elouan for now, need settings otherwise)*\
 Set your terminal in the root of the subrepo you want to build and run the following command :
 
 First, switch to the right builder for multi architecure build :\
